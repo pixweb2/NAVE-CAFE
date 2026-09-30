@@ -1,0 +1,17 @@
+{
+  "cafeName": "NAVE",
+  "tagline": "منوی دیجیتال کافه",
+  "logo": "logo.webp",
+  "phone": "09106775041",
+  "phoneDisplay": "۰۹۱۰ ۶۷۷ ۵۰۴۱",
+  "instagram": "nave_cafe",
+  "instagramUrl": "https://instagram.com/nave_cafe",
+  "tableCount": 3,
+  "takeawayEnabled": true,
+  "adminPasswordHash": "7f83b1657ff1fc53b92dc18148a1d65dfc2d4b1fa3d677284addd200126d9069",
+  "github": {
+    "owner": "pixweb2",
+    "repo": "NAVE-CAFE",
+    "branch": "main"
+  }
+}

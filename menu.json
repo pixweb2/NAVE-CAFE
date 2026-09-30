@@ -1,0 +1,560 @@
+[
+  {
+    "id": 1,
+    "name": "شیک توت فرنگی",
+    "desc": "شیک خنک با توت فرنگی تازه",
+    "price": 300,
+    "category": "shake",
+    "temp": null,
+    "image": "tf.webp"
+  },
+  {
+    "id": 2,
+    "name": "شیک وانیل",
+    "desc": "شیک ملایم وانیلی",
+    "price": 250,
+    "category": "shake",
+    "temp": null,
+    "image": "vanil.webp"
+  },
+  {
+    "id": 3,
+    "name": "شیک انبه",
+    "desc": "شیک استوایی با انبه رسیده",
+    "price": 300,
+    "category": "shake",
+    "temp": null,
+    "image": "mango.webp"
+  },
+  {
+    "id": 4,
+    "name": "شیک شکلات",
+    "desc": "شیک غنی شکلاتی",
+    "price": 280,
+    "category": "shake",
+    "temp": null,
+    "image": "shok.webp"
+  },
+  {
+    "id": 5,
+    "name": "شیک موکا",
+    "desc": "ترکیب قهوه و شکلات",
+    "price": 300,
+    "category": "shake",
+    "temp": null,
+    "image": "mokas.webp"
+  },
+  {
+    "id": 6,
+    "name": "شیک اورئو",
+    "desc": "شیک خامه‌ای با بیسکویت اورئو",
+    "price": 300,
+    "category": "shake",
+    "temp": null,
+    "image": "oreo.webp"
+  },
+  {
+    "id": 7,
+    "name": "شیک موز نوتلا",
+    "desc": "موز و نوتلا، ترکیب بی‌نظیر",
+    "price": 420,
+    "category": "shake",
+    "temp": null,
+    "image": "banot.webp"
+  },
+  {
+    "id": 8,
+    "name": "شیک اسپرسو",
+    "desc": "شیک قهوه با اسپرسو تازه",
+    "price": 300,
+    "category": "shake",
+    "temp": null,
+    "image": "espersos.webp"
+  },
+  {
+    "id": 9,
+    "name": "شیک پسته",
+    "desc": "شیک پسته اصل و خامه‌ای",
+    "price": 450,
+    "category": "shake",
+    "temp": null,
+    "image": "pestes.webp"
+  },
+  {
+    "id": 10,
+    "name": "شیک پروتئین",
+    "desc": "شیک پروتئینه برای انرژی",
+    "price": 480,
+    "category": "shake",
+    "temp": null,
+    "image": "pros.webp"
+  },
+  {
+    "id": 11,
+    "name": "شیک ویتامین",
+    "desc": "شیک میوه‌ای پر از ویتامین",
+    "price": 480,
+    "category": "shake",
+    "temp": null,
+    "image": "vitas.webp"
+  },
+  {
+    "id": 12,
+    "name": "شیک پینات",
+    "desc": "شیک کره بادام زمینی",
+    "price": 380,
+    "category": "shake",
+    "temp": null,
+    "image": "pinat.webp"
+  },
+  {
+    "id": 20,
+    "name": "چای سیاه",
+    "desc": "چای کلاسیک دم‌کرده",
+    "price": 90,
+    "category": "tea",
+    "temp": null,
+    "image": "teab.webp"
+  },
+  {
+    "id": 21,
+    "name": "چای زعفران",
+    "desc": "چای معطر با زعفران اصل",
+    "price": 150,
+    "category": "tea",
+    "temp": null,
+    "image": "teaz.webp"
+  },
+  {
+    "id": 22,
+    "name": "چای سبز",
+    "desc": "چای سبز آرام‌بخش",
+    "price": 160,
+    "category": "tea",
+    "temp": null,
+    "image": "teag.webp"
+  },
+  {
+    "id": 23,
+    "name": "چای ترش",
+    "desc": "چای ترش خنک و ملس",
+    "price": 160,
+    "category": "tea",
+    "temp": null,
+    "image": "teat.webp"
+  },
+  {
+    "id": 24,
+    "name": "گل گاوزبان",
+    "desc": "دمنوش آرام‌بخش و معطر",
+    "price": 180,
+    "category": "tea",
+    "temp": null,
+    "image": "ggz.webp"
+  },
+  {
+    "id": 25,
+    "name": "پونه",
+    "desc": "دمنوش پونه خوش‌عطر",
+    "price": 180,
+    "category": "tea",
+    "temp": null,
+    "image": "pune.webp"
+  },
+  {
+    "id": 26,
+    "name": "آویشن",
+    "desc": "دمنوش آویشن طبی",
+    "price": 180,
+    "category": "tea",
+    "temp": null,
+    "image": "avishan.webp"
+  },
+  {
+    "id": 40,
+    "name": "اسپرسو سینگل",
+    "desc": "یه شات اسپرسو غلیظ",
+    "price": 130,
+    "category": "espresso",
+    "temp": "hot",
+    "image": "espsi.webp"
+  },
+  {
+    "id": 41,
+    "name": "اسپرسو دبل",
+    "desc": "دو شات اسپرسو",
+    "price": 150,
+    "category": "espresso",
+    "temp": "hot",
+    "image": "espd.webp"
+  },
+  {
+    "id": 42,
+    "name": "رومانو",
+    "desc": "اسپرسو با لیمو",
+    "price": 170,
+    "category": "espresso",
+    "temp": "hot",
+    "image": "romano.webp"
+  },
+  {
+    "id": 43,
+    "name": "ماروچینو",
+    "desc": "اسپرسو با کاکائو",
+    "price": 180,
+    "category": "espresso",
+    "temp": "hot",
+    "image": "maro.webp"
+  },
+  {
+    "id": 44,
+    "name": "آفوگاتو",
+    "desc": "اسپرسو با بستنی",
+    "price": 250,
+    "category": "espresso",
+    "temp": "hot",
+    "image": "afogato.webp"
+  },
+  {
+    "id": 45,
+    "name": "پسته",
+    "desc": "لاته پسته‌ای خوش‌طعم",
+    "price": 295,
+    "category": "espresso",
+    "temp": "hot",
+    "image": "espeste.webp"
+  },
+  {
+    "id": 46,
+    "name": "آمریکانو",
+    "desc": "اسپرسو با آب گرم",
+    "price": 170,
+    "category": "espresso",
+    "temp": "hot",
+    "image": "amricano.webp"
+  },
+  {
+    "id": 47,
+    "name": "ماکیاتو",
+    "desc": "اسپرسو با شیر کف‌دار",
+    "price": 170,
+    "category": "espresso",
+    "temp": "hot",
+    "image": "makiyato.webp"
+  },
+  {
+    "id": 48,
+    "name": "لاته",
+    "desc": "اسپرسو با شیر بخارپز",
+    "price": 275,
+    "category": "espresso",
+    "temp": "hot",
+    "image": "late.webp"
+  },
+  {
+    "id": 49,
+    "name": "لاته طعم‌دار",
+    "desc": "لاته با سیروپ دلخواه",
+    "price": 315,
+    "category": "espresso",
+    "temp": "hot",
+    "image": "latet.webp"
+  },
+  {
+    "id": 50,
+    "name": "کاپوچینو",
+    "desc": "اسپرسو با کف شیر",
+    "price": 275,
+    "category": "espresso",
+    "temp": "hot",
+    "image": "capo.webp"
+  },
+  {
+    "id": 51,
+    "name": "موکا",
+    "desc": "قهوه با شکلات و خامه",
+    "price": 280,
+    "category": "espresso",
+    "temp": "hot",
+    "image": "mokag.webp"
+  },
+  {
+    "id": 52,
+    "name": "کارامل ماکیاتو",
+    "desc": "اسپرسو با کارامل",
+    "price": 280,
+    "category": "espresso",
+    "temp": "hot",
+    "image": "caramel.webp"
+  },
+  {
+    "id": 53,
+    "name": "سیروپ اضافی",
+    "desc": "افزودنی سیروپ",
+    "price": 50,
+    "category": "espresso",
+    "temp": "hot",
+    "image": "sir.webp"
+  },
+  {
+    "id": 60,
+    "name": "آیس لاته",
+    "desc": "لاته سرد با یخ",
+    "price": 275,
+    "category": "espresso",
+    "temp": "cold",
+    "image": "icela.webp"
+  },
+  {
+    "id": 61,
+    "name": "آیس لاته طعم‌دار",
+    "desc": "لاته سرد با سیروپ",
+    "price": 315,
+    "category": "espresso",
+    "temp": "cold",
+    "image": "icelat.webp"
+  },
+  {
+    "id": 62,
+    "name": "آیس آمریکانو",
+    "desc": "آمریکانو سرد",
+    "price": 170,
+    "category": "espresso",
+    "temp": "cold",
+    "image": "iceamri.webp"
+  },
+  {
+    "id": 63,
+    "name": "آیس موچینو",
+    "desc": "اسپرسو سرد با شکلات",
+    "price": 275,
+    "category": "espresso",
+    "temp": "cold",
+    "image": "icemoch.webp"
+  },
+  {
+    "id": 64,
+    "name": "آیس موکا",
+    "desc": "موکا سرد",
+    "price": 280,
+    "category": "espresso",
+    "temp": "cold",
+    "image": "icemoka.webp"
+  },
+  {
+    "id": 65,
+    "name": "آیس کارامل",
+    "desc": "اسپرسو سرد با کارامل",
+    "price": 280,
+    "category": "espresso",
+    "temp": "cold",
+    "image": "icecara.webp"
+  },
+  {
+    "id": 66,
+    "name": "آیس لاته انبه",
+    "desc": "آیس لاته انبه‌ای",
+    "price": 320,
+    "category": "espresso",
+    "temp": "cold",
+    "image": "icelatea.webp"
+  },
+  {
+    "id": 67,
+    "name": "آیس لاته پسته",
+    "desc": "آیس لاته پسته‌ای",
+    "price": 360,
+    "category": "espresso",
+    "temp": "cold",
+    "image": "icelatepe.webp"
+  },
+  {
+    "id": 68,
+    "name": "آیس لاته پروتئین",
+    "desc": "آیس لاته پروتئینه",
+    "price": 370,
+    "category": "espresso",
+    "temp": "cold",
+    "image": "icelatepro.webp"
+  },
+  {
+    "id": 80,
+    "name": "شیر گرم",
+    "desc": "شیر تازه گرم",
+    "price": 130,
+    "category": "drink",
+    "temp": "hot",
+    "image": "milkg.webp"
+  },
+  {
+    "id": 81,
+    "name": "شیر کاکائو",
+    "desc": "شیر گرم با کاکائو",
+    "price": 200,
+    "category": "drink",
+    "temp": "hot",
+    "image": "milkkg.webp"
+  },
+  {
+    "id": 82,
+    "name": "شیر نوتلا",
+    "desc": "شیر گرم با نوتلا",
+    "price": 250,
+    "category": "drink",
+    "temp": "hot",
+    "image": "milkn.webp"
+  },
+  {
+    "id": 83,
+    "name": "شیر پسته",
+    "desc": "شیر گرم با پسته",
+    "price": 250,
+    "category": "drink",
+    "temp": "hot",
+    "image": "milkpe.webp"
+  },
+  {
+    "id": 84,
+    "name": "هات چاکلت",
+    "desc": "شکلات گرم غنی",
+    "price": 245,
+    "category": "drink",
+    "temp": "hot",
+    "image": "hotc.webp"
+  },
+  {
+    "id": 85,
+    "name": "کرک",
+    "desc": "نوشیدنی گرم کرک",
+    "price": 280,
+    "category": "drink",
+    "temp": "hot",
+    "image": "crc.webp"
+  },
+  {
+    "id": 86,
+    "name": "ماسالا",
+    "desc": "چای ماسالا هندی",
+    "price": 280,
+    "category": "drink",
+    "temp": "hot",
+    "image": "masa.webp"
+  },
+  {
+    "id": 90,
+    "name": "شیر سرد",
+    "desc": "شیر تازه سرد",
+    "price": 120,
+    "category": "drink",
+    "temp": "cold",
+    "image": "milks.webp"
+  },
+  {
+    "id": 91,
+    "name": "شکلات سرد",
+    "desc": "شکلات خنک",
+    "price": 245,
+    "category": "drink",
+    "temp": "cold",
+    "image": "milkcs.webp"
+  },
+  {
+    "id": 92,
+    "name": "ماسالا سرد",
+    "desc": "ماسالا سرد",
+    "price": 280,
+    "category": "drink",
+    "temp": "cold",
+    "image": "maslas.webp"
+  },
+  {
+    "id": 93,
+    "name": "کرک سرد",
+    "desc": "کرک خنک",
+    "price": 280,
+    "category": "drink",
+    "temp": "cold",
+    "image": "crcs.webp"
+  },
+  {
+    "id": 94,
+    "name": "شکلات سرد طعم‌دار",
+    "desc": "شکلات سرد با سیروپ",
+    "price": 290,
+    "category": "drink",
+    "temp": "cold",
+    "image": "cst.webp"
+  },
+  {
+    "id": 95,
+    "name": "لیموناد",
+    "desc": "لیموناد خنک و ملس",
+    "price": 260,
+    "category": "drink",
+    "temp": "cold",
+    "image": "lim.webp"
+  },
+  {
+    "id": 96,
+    "name": "موهیتو",
+    "desc": "موهیتو نعنا و لیمو",
+    "price": 280,
+    "category": "drink",
+    "temp": "cold",
+    "image": "mohit.webp"
+  },
+  {
+    "id": 97,
+    "name": "پیناکولادا",
+    "desc": "پیناکولادای استوایی",
+    "price": 380,
+    "category": "drink",
+    "temp": "cold",
+    "image": "pina.webp"
+  },
+  {
+    "id": 100,
+    "name": "کیک روز",
+    "desc": "کیک تازه روز",
+    "price": null,
+    "category": "cake",
+    "temp": null,
+    "image": "caked.webp"
+  },
+  {
+    "id": 101,
+    "name": "تیرامیسو",
+    "desc": "دسر ایتالیایی کلاسیک",
+    "price": null,
+    "category": "cake",
+    "temp": null,
+    "image": "tira.webp"
+  },
+  {
+    "id": 102,
+    "name": "چیز کیک",
+    "desc": "چیز کیک نیویورکی",
+    "price": null,
+    "category": "cake",
+    "temp": null,
+    "image": "ccake.webp"
+  },
+  {
+    "id": 103,
+    "name": "دوبی چاکلت",
+    "desc": "شکلات دوبی معروف",
+    "price": null,
+    "category": "cake",
+    "temp": null,
+    "image": "dchoclet.webp"
+  },
+  {
+    "id": 104,
+    "name": "کوکی",
+    "desc": "کوکی تازه و خوشمزه",
+    "price": null,
+    "category": "cake",
+    "temp": null,
+    "image": "coki.webp"
+  }
+]
