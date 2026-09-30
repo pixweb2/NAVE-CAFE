@@ -107,7 +107,7 @@
     background: var(--white);
     border-radius: 24px;
     padding: 40px 32px;
-    max-width: 520px;
+    max-width: 480px;
     width: 100%;
     box-shadow: 0 25px 70px rgba(0,0,0,0.3);
   }
@@ -118,25 +118,15 @@
     padding: 14px 18px;
     border: 2px solid var(--gray-border);
     border-radius: 14px;
-    font-family: monospace;
-    font-size: 0.85rem;
+    font-family: inherit;
+    font-size: 0.9rem;
     outline: none;
     margin-bottom: 12px;
     min-height: 90px;
-    direction: ltr;
-    text-align: left;
+    text-align: center;
+    resize: vertical;
   }
-  .token-hint {
-    background: #fff8e1;
-    border: 1px solid #ffe082;
-    border-radius: 12px;
-    padding: 12px 16px;
-    font-size: 0.78rem;
-    color: #7a5c00;
-    line-height: 1.7;
-    margin-bottom: 16px;
-  }
-  .token-hint a { color: var(--primary); font-weight: 700; }
+  .token-box textarea:focus { border-color: var(--primary); }
 
   .dashboard { display: none; }
   .dashboard.show { display: block; }
@@ -465,21 +455,14 @@
   </div>
 </div>
 
-<!-- صفحه توکن -->
+<!-- صفحه رمز دوم -->
 <div class="token-screen hidden" id="tokenScreen">
   <div class="token-box">
-    <h2><i class="fab fa-github"></i> اتصال به گیت‌هاب</h2>
-    <p>برای ذخیره تغییرات، توکن دسترسی نیاز است.</p>
-    <div class="token-hint">
-      <strong>🔑 از کجا توکن بگیرم؟</strong><br>
-      از <a href="https://github.com/settings/tokens?type=beta" target="_blank">این صفحه</a>:<br>
-      • Repository access: فقط NAVE-CAFE<br>
-      • Contents: Read and write<br>
-      • Metadata: Read-only
-    </div>
-    <textarea id="tokenInput" placeholder="github_pat_11ABC..."></textarea>
+    <h2><i class="fas fa-key"></i> رمز دوم</h2>
+    <p>برای دسترسی به تنظیمات، رمز دوم را وارد کنید.</p>
+    <textarea id="tokenInput" placeholder="رمز دوم را وارد کنید..."></textarea>
     <div class="login-error" id="tokenError"></div>
-    <button class="btn-login" id="tokenBtn"><i class="fas fa-check"></i> ذخیره و ادامه</button>
+    <button class="btn-login" id="tokenBtn"><i class="fas fa-check"></i> تأیید</button>
   </div>
 </div>
 
@@ -633,15 +616,12 @@
    تنظیمات
    ============================================ */
 const GITHUB = { owner: "pixweb2", repo: "NAVE-CAFE", branch: "main" };
-const PASSWORD = "NAVE1405";  // ← رمز ورود (فقط عدد)
+const PASSWORD = "1405";  // رمز ورود
 
-/* ============================================
-   State
-   ============================================ */
 let CONFIG = {};
 let PRODUCTS = [];
 let editingId = null;
-let GH_TOKEN = localStorage.getItem("nave_gh_token") || "";
+let GH_TOKEN = "";  // هر بار باید دستی وارد شود
 
 /* ============================================
    Helpers
@@ -661,7 +641,7 @@ function b64Encode(str) { return btoa(unescape(encodeURIComponent(str))); }
 function b64Decode(str) { return decodeURIComponent(escape(atob(str))); }
 
 /* ============================================
-   GitHub API
+   API (مخفی)
    ============================================ */
 async function ghGet(path) {
   const url = `https://api.github.com/repos/${GITHUB.owner}/${GITHUB.repo}/contents/${path}?ref=${GITHUB.branch}&t=${Date.now()}`;
@@ -714,11 +694,8 @@ document.getElementById("loginBtn").addEventListener("click", () => {
   }
   if (pass === PASSWORD) {
     document.getElementById("loginScreen").classList.add("hidden");
-    if (!GH_TOKEN) {
-      document.getElementById("tokenScreen").classList.remove("hidden");
-    } else {
-      startDashboard();
-    }
+    // هر بار رمز دوم را بخواه
+    document.getElementById("tokenScreen").classList.remove("hidden");
   } else {
     errEl.textContent = "رمز اشتباه است";
     document.getElementById("loginPassword").value = "";
@@ -729,22 +706,20 @@ document.getElementById("loginPassword").addEventListener("keydown", e => {
 });
 
 /* ============================================
-   توکن
+   رمز دوم
    ============================================ */
 document.getElementById("tokenBtn").addEventListener("click", async () => {
   const tok = document.getElementById("tokenInput").value.trim();
   const errEl = document.getElementById("tokenError");
   errEl.textContent = "";
-  if (!tok) { errEl.textContent = "توکن را وارد کنید"; return; }
+  if (!tok) { errEl.textContent = "رمز دوم را وارد کنید"; return; }
   GH_TOKEN = tok;
-  localStorage.setItem("nave_gh_token", tok);
   try {
     await loadData();
     document.getElementById("tokenScreen").classList.add("hidden");
     startDashboard();
   } catch (e) {
-    errEl.textContent = "توکن نامعتبر است";
-    localStorage.removeItem("nave_gh_token");
+    errEl.textContent = "رمز دوم اشتباه است";
     GH_TOKEN = "";
   }
 });
