@@ -476,6 +476,20 @@
   .receipt h2 { font-size: 1.2rem; color: var(--text-dark); margin-bottom: 4px; }
   .receipt-sub { color: var(--text-muted); font-size: 0.8rem; }
 
+  /* دکمه متوجه شدم - بالای رسید */
+  .btn-close-receipt {
+    width: 100%;
+    background: var(--primary); color: var(--white);
+    border: none; padding: 13px;
+    border-radius: 12px;
+    font-family: inherit; font-weight: 700; font-size: 0.95rem;
+    cursor: pointer; transition: all 0.25s;
+    flex-shrink: 0;
+    box-shadow: 0 6px 16px rgba(20,36,122,0.25);
+    margin-bottom: 14px;
+  }
+  .btn-close-receipt:hover { background: var(--primary-light); }
+
   /* کد سفارش */
   .order-code {
     background: var(--gray-bg);
@@ -501,7 +515,6 @@
     background: var(--gray-bg);
     border-radius: 14px;
     padding: 14px 16px;
-    margin-bottom: 14px;
     font-size: 0.86rem;
     line-height: 1.8;
     overflow-y: auto;
@@ -517,19 +530,6 @@
     margin-top: 6px; padding-top: 8px;
     font-weight: 700; color: var(--primary); font-size: 0.95rem;
   }
-
-  /* دکمه متوجه شدم (بالا، ثابت) */
-  .btn-close-receipt {
-    width: 100%;
-    background: var(--primary); color: var(--white);
-    border: none; padding: 13px;
-    border-radius: 12px;
-    font-family: inherit; font-weight: 700; font-size: 0.95rem;
-    cursor: pointer; transition: all 0.25s;
-    flex-shrink: 0;
-    box-shadow: 0 6px 16px rgba(20,36,122,0.25);
-  }
-  .btn-close-receipt:hover { background: var(--primary-light); }
 
   /* توست */
   .toast-message {
@@ -709,6 +709,9 @@
       <div class="receipt-sub">سفارش در حال آماده‌سازی است</div>
     </div>
 
+    <!-- دکمه متوجه شدم (بالا) -->
+    <button class="btn-close-receipt" id="closeReceipt">متوجه شدم</button>
+
     <!-- کد سفارش -->
     <div class="order-code">
       <small>کد سفارش</small>
@@ -717,9 +720,6 @@
 
     <!-- سفارشات (اسکرول‌پذیر) -->
     <div class="receipt-summary" id="receiptSummary"></div>
-
-    <!-- دکمه متوجه شدم (بالا، ثابت) -->
-    <button class="btn-close-receipt" id="closeReceipt">متوجه شدم</button>
   </div>
 </div>
 
@@ -958,7 +958,6 @@ function buildOrderMessage(code) {
     lines.push(`${num} ${item.name}`);
   });
   lines.push(`میز: ${selectedTable === "takeaway" ? "بیرون‌بر" : selectedTable}`);
-  // اضافه کردن کد اشتراک فقط برای بیرون‌بر
   if (selectedTable === "takeaway") {
     lines.push("کد اشتراک:");
   }
@@ -1054,7 +1053,6 @@ async function init() {
     const configRes = await fetch("config.json?t=" + Date.now());
     CONFIG = await configRes.json();
 
-    // پیش‌فرض 4 میز
     if (!CONFIG.tableCount) CONFIG.tableCount = 4;
 
     document.getElementById("brandName").textContent = CONFIG.cafeName || "NAVE";
