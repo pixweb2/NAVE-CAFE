@@ -397,7 +397,7 @@
     border-color: var(--primary);
     box-shadow: 0 4px 12px rgba(20,36,122,0.3);
   }
-  .table-btn.takeaway { font-size: 0.78rem; }
+  .table-btn.takeaway { font-size: 0.78rem; grid-column: span 4; }
   .cart-footer {
     padding: 16px 20px 20px;
     border-top: 2px solid var(--gray-border);
@@ -431,7 +431,7 @@
   }
   .btn-checkout:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
-  /* رسید */
+  /* ==================== رسید (طراحی جدید) ==================== */
   .receipt-modal {
     position: fixed; inset: 0;
     background: rgba(15, 20, 50, 0.6);
@@ -439,70 +439,95 @@
     z-index: 1000;
     display: none; align-items: center; justify-content: center;
     padding: 20px;
+    overflow: hidden;
   }
   .receipt-modal.open { display: flex; }
   .receipt {
     background: var(--white);
     border-radius: 24px;
-    padding: 32px 28px;
-    max-width: 440px; width: 100%;
-    text-align: center;
+    padding: 24px 22px;
+    max-width: 420px; width: 100%;
+    max-height: 92vh;
+    display: flex;
+    flex-direction: column;
     animation: receiptIn 0.5s cubic-bezier(0.2, 0.9, 0.3, 1.1);
-    max-height: 90vh; overflow-y: auto;
+    overflow: hidden;
   }
   @keyframes receiptIn {
     from { opacity: 0; transform: scale(0.9) translateY(20px); }
     to   { opacity: 1; transform: scale(1) translateY(0); }
   }
+
+  /* بالا: آیکون + عنوان */
+  .receipt-top {
+    text-align: center;
+    margin-bottom: 14px;
+    flex-shrink: 0;
+  }
   .receipt-icon {
-    width: 72px; height: 72px;
+    width: 60px; height: 60px;
     border-radius: 50%;
     background: linear-gradient(135deg, #10b981, #059669);
     color: var(--white);
     display: flex; align-items: center; justify-content: center;
-    font-size: 2rem; margin: 0 auto 16px;
-    box-shadow: 0 10px 30px rgba(16, 185, 129, 0.35);
+    font-size: 1.7rem; margin: 0 auto 12px;
+    box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3);
   }
-  .receipt h2 { font-size: 1.35rem; color: var(--text-dark); margin-bottom: 6px; }
-  .receipt > p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px; }
+  .receipt h2 { font-size: 1.2rem; color: var(--text-dark); margin-bottom: 4px; }
+  .receipt-sub { color: var(--text-muted); font-size: 0.8rem; }
+
+  /* کد سفارش */
   .order-code {
     background: var(--gray-bg);
     border: 2px dashed var(--primary);
-    border-radius: 16px;
-    padding: 16px; margin-bottom: 20px;
+    border-radius: 14px;
+    padding: 12px;
+    margin-bottom: 14px;
+    text-align: center;
+    flex-shrink: 0;
   }
   .order-code small {
     display: block; color: var(--text-muted);
-    font-size: 0.75rem; margin-bottom: 6px;
+    font-size: 0.7rem; margin-bottom: 4px;
   }
   .order-code strong {
-    font-size: 1.8rem; color: var(--primary);
+    font-size: 1.5rem; color: var(--primary);
     letter-spacing: 3px; font-weight: 900;
   }
+
+  /* اسکرول‌پذیر: سفارشات */
   .receipt-summary {
     text-align: right;
     background: var(--gray-bg);
-    border-radius: 16px;
-    padding: 16px 18px;
-    margin-bottom: 20px;
-    font-size: 0.88rem; line-height: 1.9;
+    border-radius: 14px;
+    padding: 14px 16px;
+    margin-bottom: 14px;
+    font-size: 0.86rem;
+    line-height: 1.8;
+    overflow-y: auto;
+    flex: 1;
+    min-height: 0;
   }
   .receipt-summary .row {
     display: flex; justify-content: space-between;
-    padding: 4px 0;
+    padding: 3px 0;
   }
   .receipt-summary .row.total {
     border-top: 1px solid var(--gray-border);
-    margin-top: 8px; padding-top: 10px;
-    font-weight: 700; color: var(--primary); font-size: 1rem;
+    margin-top: 6px; padding-top: 8px;
+    font-weight: 700; color: var(--primary); font-size: 0.95rem;
   }
+
+  /* دکمه متوجه شدم (بالا، ثابت) */
   .btn-close-receipt {
     width: 100%;
     background: var(--primary); color: var(--white);
-    border: none; padding: 14px;
-    border-radius: 14px;
+    border: none; padding: 13px;
+    border-radius: 12px;
     font-family: inherit; font-weight: 700; font-size: 0.95rem;
     cursor: pointer; transition: all 0.25s;
+    flex-shrink: 0;
+    box-shadow: 0 6px 16px rgba(20,36,122,0.25);
   }
   .btn-close-receipt:hover { background: var(--primary-light); }
 
@@ -674,16 +699,26 @@
   </div>
 </aside>
 
+<!-- ==================== رسید ==================== -->
 <div class="receipt-modal" id="receiptModal">
   <div class="receipt">
-    <div class="receipt-icon"><i class="fas fa-check"></i></div>
-    <h2>سفارش شما ثبت شد!</h2>
-    <p>لطفاً منتظر بمانید. سفارش شما در حال آماده‌سازی است.</p>
+    <!-- بالا: آیکون + عنوان -->
+    <div class="receipt-top">
+      <div class="receipt-icon"><i class="fas fa-check"></i></div>
+      <h2>سفارش شما ثبت شد!</h2>
+      <div class="receipt-sub">سفارش در حال آماده‌سازی است</div>
+    </div>
+
+    <!-- کد سفارش -->
     <div class="order-code">
-      <small>کد سفارش شما</small>
+      <small>کد سفارش</small>
       <strong id="orderCode">----</strong>
     </div>
+
+    <!-- سفارشات (اسکرول‌پذیر) -->
     <div class="receipt-summary" id="receiptSummary"></div>
+
+    <!-- دکمه متوجه شدم (بالا، ثابت) -->
     <button class="btn-close-receipt" id="closeReceipt">متوجه شدم</button>
   </div>
 </div>
@@ -857,11 +892,12 @@ function updateCartUI() {
 }
 
 /* ====================================================================
-   میزها
+   میزها (4 تا + بیرون‌بر)
    ==================================================================== */
 function buildTables() {
   let html = "";
-  for (let i = 1; i <= (CONFIG.tableCount || 3); i++) {
+  const count = CONFIG.tableCount || 4;
+  for (let i = 1; i <= count; i++) {
     html += `<button class="table-btn" data-table="${i}">میز ${i.toLocaleString("fa-IR")}</button>`;
   }
   if (CONFIG.takeawayEnabled !== false) {
@@ -922,6 +958,10 @@ function buildOrderMessage(code) {
     lines.push(`${num} ${item.name}`);
   });
   lines.push(`میز: ${selectedTable === "takeaway" ? "بیرون‌بر" : selectedTable}`);
+  // اضافه کردن کد اشتراک فقط برای بیرون‌بر
+  if (selectedTable === "takeaway") {
+    lines.push("کد اشتراک:");
+  }
   return lines.join("\n");
 }
 
@@ -1013,6 +1053,9 @@ async function init() {
   try {
     const configRes = await fetch("config.json?t=" + Date.now());
     CONFIG = await configRes.json();
+
+    // پیش‌فرض 4 میز
+    if (!CONFIG.tableCount) CONFIG.tableCount = 4;
 
     document.getElementById("brandName").textContent = CONFIG.cafeName || "NAVE";
     document.getElementById("brandSub").textContent = CONFIG.tagline || "منوی دیجیتال کافه";

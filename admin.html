@@ -171,6 +171,7 @@
   .btn-primary { background: var(--primary); color: var(--white); }
   .btn-primary:hover { background: var(--primary-light); }
   .btn-success { background: var(--success); color: var(--white); }
+  .btn-danger { background: var(--danger); color: var(--white); }
   .btn-ghost { background: var(--gray-bg); color: var(--text-dark); }
   .btn-sm { padding: 8px 14px; font-size: 0.78rem; }
 
@@ -367,20 +368,78 @@
   .form-group textarea { min-height: 80px; resize: vertical; }
   .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
+  /* عکس + آپلود */
+  .img-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
   .img-preview {
     width: 100%;
     aspect-ratio: 2/1;
     border-radius: 12px;
     background: var(--gray-bg);
     overflow: hidden;
-    margin-bottom: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--text-muted);
     font-size: 0.82rem;
+    border: 1.5px dashed var(--gray-border);
+    position: relative;
   }
   .img-preview img { width: 100%; height: 100%; object-fit: contain; }
+  .img-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .img-actions input[type="file"] { display: none; }
+  .img-actions label {
+    flex: 1;
+    min-width: 120px;
+    background: var(--primary);
+    color: var(--white);
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-align: center;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: all 0.2s;
+  }
+  .img-actions label:hover { background: var(--primary-light); }
+  .img-actions .btn-remove-img {
+    background: var(--danger);
+    color: var(--white);
+    border: none;
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+  .img-actions .btn-remove-img:hover { background: #dc2626; }
+  .img-actions .btn-remove-img:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  .upload-status {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-align: center;
+    min-height: 1.2em;
+  }
+  .upload-status.loading { color: var(--primary); font-weight: 700; }
+  .upload-status.success { color: var(--success); font-weight: 700; }
+  .upload-status.error { color: var(--danger); font-weight: 700; }
+
   .form-hint { font-size: 0.72rem; color: var(--text-muted); margin-top: 6px; }
   .modal-actions {
     display: flex;
@@ -428,10 +487,12 @@
     gap: 10px;
     transition: transform 0.4s;
     pointer-events: none;
+    max-width: 90vw;
   }
   .toast-admin.show { transform: translateX(-50%) translateY(0); }
   .toast-admin.success { background: var(--success); }
   .toast-admin.error { background: var(--danger); }
+  .toast-admin.info { background: var(--primary); }
 
   @media (max-width: 700px) {
     body { padding: 0 10px 20px; }
@@ -560,11 +621,27 @@
 <div class="modal-overlay" id="productModal">
   <div class="modal">
     <h3 id="productModalTitle"><i class="fas fa-plus-circle"></i> <span>محصول جدید</span></h3>
+
+    <!-- بخش عکس با آپلود -->
     <div class="form-group">
-      <label>عکس (نام فایل)</label>
-      <div class="img-preview" id="imgPreview"><span>پیش‌نمایش</span></div>
-      <input type="text" id="pImage" placeholder="tf.webp" />
+      <label>عکس محصول</label>
+      <div class="img-wrapper">
+        <div class="img-preview" id="imgPreview"><span>پیش‌نمایش عکس</span></div>
+        <div class="img-actions">
+          <label for="imgUpload">
+            <i class="fas fa-upload"></i> آپلود عکس
+          </label>
+          <input type="file" id="imgUpload" accept="image/*" />
+          <button type="button" class="btn-remove-img" id="removeImgBtn">
+            <i class="fas fa-trash"></i> حذف عکس
+          </button>
+        </div>
+        <div class="upload-status" id="uploadStatus"></div>
+      </div>
+      <input type="hidden" id="pImage" />
+      <div class="form-hint">💡 فرمت‌های قابل قبول: jpg, png, webp, gif</div>
     </div>
+
     <div class="form-group">
       <label>نام <span>*</span></label>
       <input type="text" id="pName" />
@@ -616,12 +693,13 @@
    تنظیمات
    ============================================ */
 const GITHUB = { owner: "pixweb2", repo: "NAVE-CAFE", branch: "main" };
-const PASSWORD = "1405";  // رمز ورود
+const PASSWORD = "1405";
 
 let CONFIG = {};
 let PRODUCTS = [];
 let editingId = null;
-let GH_TOKEN = "";  // هر بار باید دستی وارد شود
+let GH_TOKEN = "";
+let currentImageFilename = "";
 
 /* ============================================
    Helpers
@@ -631,7 +709,7 @@ function showToast(text, type = "success") {
   document.getElementById("adminToastText").textContent = text;
   toast.className = "toast-admin show " + type;
   clearTimeout(window._t);
-  window._t = setTimeout(() => toast.classList.remove("show"), 2800);
+  window._t = setTimeout(() => toast.classList.remove("show"), 3000);
 }
 function setStatus(state, text) {
   document.getElementById("statusBadge").className = "status-badge " + state;
@@ -640,8 +718,23 @@ function setStatus(state, text) {
 function b64Encode(str) { return btoa(unescape(encodeURIComponent(str))); }
 function b64Decode(str) { return decodeURIComponent(escape(atob(str))); }
 
+/* تبدیل فایل به Base64 (بدون prefix) */
+function fileToBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const result = reader.result;
+      // حذف "data:image/xxx;base64,"
+      const base64 = result.split(",")[1];
+      resolve(base64);
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
 /* ============================================
-   API (مخفی)
+   API
    ============================================ */
 async function ghGet(path) {
   const url = `https://api.github.com/repos/${GITHUB.owner}/${GITHUB.repo}/contents/${path}?ref=${GITHUB.branch}&t=${Date.now()}`;
@@ -655,6 +748,7 @@ async function ghGet(path) {
   const data = await res.json();
   return { content: b64Decode(data.content), sha: data.sha };
 }
+
 async function ghPut(path, content, message) {
   let sha = null;
   try {
@@ -675,6 +769,57 @@ async function ghPut(path, content, message) {
   }
   return res.json();
 }
+
+/* آپلود فایل باینری (برای عکس) */
+async function ghPutBinary(path, base64Content, message) {
+  let sha = null;
+  try {
+    const existing = await ghGet(path);
+    if (existing) sha = existing.sha;
+  } catch (e) {}
+
+  const url = `https://api.github.com/repos/${GITHUB.owner}/${GITHUB.repo}/contents/${path}`;
+  const body = {
+    message: message || `upload ${path}`,
+    content: base64Content,
+    branch: GITHUB.branch
+  };
+  if (sha) body.sha = sha;
+
+  const res = await fetch(url, {
+    method: "PUT",
+    headers: { "Authorization": `Bearer ${GH_TOKEN}`, "Accept": "application/vnd.github+json", "Content-Type": "application/json" },
+    body: JSON.stringify(body)
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.message || "Upload failed: " + res.status);
+  }
+  return res.json();
+}
+
+/* حذف فایل */
+async function ghDelete(path, message) {
+  const existing = await ghGet(path);
+  if (!existing) return; // فایل وجود نداره
+  const url = `https://api.github.com/repos/${GITHUB.owner}/${GITHUB.repo}/contents/${path}`;
+  const body = {
+    message: message || `delete ${path}`,
+    sha: existing.sha,
+    branch: GITHUB.branch
+  };
+  const res = await fetch(url, {
+    method: "DELETE",
+    headers: { "Authorization": `Bearer ${GH_TOKEN}`, "Accept": "application/vnd.github+json", "Content-Type": "application/json" },
+    body: JSON.stringify(body)
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.message || "Delete failed: " + res.status);
+  }
+  return res.json();
+}
+
 async function loadData() {
   const [cfg, menu] = await Promise.all([ghGet("config.json"), ghGet("menu.json")]);
   if (cfg) CONFIG = JSON.parse(cfg.content);
@@ -694,7 +839,6 @@ document.getElementById("loginBtn").addEventListener("click", () => {
   }
   if (pass === PASSWORD) {
     document.getElementById("loginScreen").classList.add("hidden");
-    // هر بار رمز دوم را بخواه
     document.getElementById("tokenScreen").classList.remove("hidden");
   } else {
     errEl.textContent = "رمز اشتباه است";
@@ -748,7 +892,7 @@ function applyConfig() {
   document.getElementById("cfgPhoneDisplay").value = CONFIG.phoneDisplay || "";
   document.getElementById("cfgInstagram").value = CONFIG.instagram || "";
   document.getElementById("cfgInstagramUrl").value = CONFIG.instagramUrl || "";
-  document.getElementById("cfgTableCount").value = CONFIG.tableCount || 3;
+  document.getElementById("cfgTableCount").value = CONFIG.tableCount || 4;
   document.getElementById("cfgTakeaway").value = CONFIG.takeawayEnabled !== false ? "true" : "false";
   document.getElementById("adminBrandName").textContent = CONFIG.cafeName || "NAVE";
   document.getElementById("adminLogo").src = CONFIG.logo || "logo.webp";
@@ -805,6 +949,7 @@ document.getElementById("filterSearch").addEventListener("input", renderProducts
    ============================================ */
 document.getElementById("addProductBtn").addEventListener("click", () => {
   editingId = null;
+  currentImageFilename = "";
   document.getElementById("productModalTitle").innerHTML = '<i class="fas fa-plus-circle"></i> <span>محصول جدید</span>';
   document.getElementById("pImage").value = "";
   document.getElementById("pName").value = "";
@@ -812,15 +957,21 @@ document.getElementById("addProductBtn").addEventListener("click", () => {
   document.getElementById("pPrice").value = "";
   document.getElementById("pCategory").value = "shake";
   document.getElementById("pTemp").value = "";
+  document.getElementById("uploadStatus").textContent = "";
+  document.getElementById("uploadStatus").className = "upload-status";
   updateImgPreview();
   toggleTempField();
   document.getElementById("productModal").classList.add("open");
 });
 
+/* ============================================
+   ویرایش
+   ============================================ */
 function editProduct(id) {
   const p = PRODUCTS.find(x => x.id === id);
   if (!p) return;
   editingId = id;
+  currentImageFilename = p.image || "";
   document.getElementById("productModalTitle").innerHTML = '<i class="fas fa-pen"></i> <span>ویرایش محصول</span>';
   document.getElementById("pImage").value = p.image || "";
   document.getElementById("pName").value = p.name || "";
@@ -828,12 +979,17 @@ function editProduct(id) {
   document.getElementById("pPrice").value = (p.price === null || p.price === undefined) ? "" : p.price;
   document.getElementById("pCategory").value = p.category || "shake";
   document.getElementById("pTemp").value = p.temp || "";
+  document.getElementById("uploadStatus").textContent = "";
+  document.getElementById("uploadStatus").className = "upload-status";
   updateImgPreview();
   toggleTempField();
   document.getElementById("productModal").classList.add("open");
 }
 window.editProduct = editProduct;
 
+/* ============================================
+   حذف محصول
+   ============================================ */
 async function deleteProduct(id) {
   const p = PRODUCTS.find(x => x.id === id);
   if (!p) return;
@@ -844,21 +1000,27 @@ async function deleteProduct(id) {
 }
 window.deleteProduct = deleteProduct;
 
+/* ============================================
+   ذخیره محصول
+   ============================================ */
 document.getElementById("saveProductBtn").addEventListener("click", async () => {
   const name = document.getElementById("pName").value.trim();
   const cat = document.getElementById("pCategory").value;
   if (!name) { showToast("نام محصول را وارد کنید", "error"); return; }
+
   const priceRaw = document.getElementById("pPrice").value.trim();
   const priceVal = priceRaw === "" ? null : parseInt(priceRaw);
   const tempVal = document.getElementById("pTemp").value || null;
+
   const data = {
     name,
     desc: document.getElementById("pDesc").value.trim(),
     price: priceVal,
     category: cat,
     temp: (cat === "espresso" || cat === "drink") ? tempVal : null,
-    image: document.getElementById("pImage").value.trim() || ""
+    image: currentImageFilename || ""
   };
+
   if (editingId === null) {
     const newId = Math.max(0, ...PRODUCTS.map(p => p.id)) + 1;
     PRODUCTS.push({ id: newId, ...data });
@@ -866,6 +1028,7 @@ document.getElementById("saveProductBtn").addEventListener("click", async () => 
     const idx = PRODUCTS.findIndex(p => p.id === editingId);
     if (idx !== -1) PRODUCTS[idx] = { ...PRODUCTS[idx], ...data };
   }
+
   document.getElementById("productModal").classList.remove("open");
   renderProducts();
   await saveMenu(true);
@@ -875,14 +1038,99 @@ document.getElementById("cancelProductBtn").addEventListener("click", () => {
   document.getElementById("productModal").classList.remove("open");
 });
 
+/* ============================================
+   پیش‌نمایش عکس
+   ============================================ */
 function updateImgPreview() {
-  const src = document.getElementById("pImage").value.trim();
+  const src = currentImageFilename;
   const prev = document.getElementById("imgPreview");
-  if (!src) { prev.innerHTML = "<span>پیش‌نمایش</span>"; return; }
-  prev.innerHTML = `<img src="${src}" onerror="this.parentElement.innerHTML='<span>عکس نیست</span>'" />`;
+  if (!src) {
+    prev.innerHTML = "<span>پیش‌نمایش عکس</span>";
+    return;
+  }
+  // اضافه کردن timestamp برای رفرش
+  prev.innerHTML = `<img src="${src}?t=${Date.now()}" onerror="this.parentElement.innerHTML='<span>عکس نیست</span>'" />`;
 }
-document.getElementById("pImage").addEventListener("input", updateImgPreview);
 
+/* ============================================
+   آپلود عکس
+   ============================================ */
+document.getElementById("imgUpload").addEventListener("change", async (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  const statusEl = document.getElementById("uploadStatus");
+
+  // چک حجم (حداکثر 1MB برای GitHub API)
+  if (file.size > 1024 * 1024) {
+    statusEl.textContent = "❌ حجم عکس باید کمتر از ۱ مگابایت باشد";
+    statusEl.className = "upload-status error";
+    e.target.value = "";
+    return;
+  }
+
+  statusEl.textContent = "⏳ در حال آپلود...";
+  statusEl.className = "upload-status loading";
+
+  try {
+    // نام فایل اصلی (همون که آپلود شد)
+    const filename = file.name;
+
+    // تبدیل به base64
+    const base64 = await fileToBase64(file);
+
+    // آپلود به گیت‌هاب
+    await ghPutBinary(filename, base64, `upload ${filename}`);
+
+    // آپدیت state
+    currentImageFilename = filename;
+    document.getElementById("pImage").value = filename;
+    updateImgPreview();
+
+    statusEl.textContent = "✅ عکس با موفقیت آپلود شد";
+    statusEl.className = "upload-status success";
+  } catch (err) {
+    console.error(err);
+    statusEl.textContent = "❌ خطا در آپلود: " + err.message;
+    statusEl.className = "upload-status error";
+  }
+
+  // پاک کردن input تا بشه دوباره همون فایل رو انتخاب کرد
+  e.target.value = "";
+});
+
+/* ============================================
+   حذف عکس
+   ============================================ */
+document.getElementById("removeImgBtn").addEventListener("click", async () => {
+  if (!currentImageFilename) {
+    showToast("عکسی برای حذف وجود ندارد", "error");
+    return;
+  }
+
+  if (!confirm(`حذف عکس "${currentImageFilename}"؟`)) return;
+
+  const statusEl = document.getElementById("uploadStatus");
+  statusEl.textContent = "⏳ در حال حذف...";
+  statusEl.className = "upload-status loading";
+
+  try {
+    await ghDelete(currentImageFilename, `delete ${currentImageFilename}`);
+    currentImageFilename = "";
+    document.getElementById("pImage").value = "";
+    updateImgPreview();
+    statusEl.textContent = "✅ عکس حذف شد";
+    statusEl.className = "upload-status success";
+  } catch (err) {
+    console.error(err);
+    statusEl.textContent = "❌ خطا در حذف: " + err.message;
+    statusEl.className = "upload-status error";
+  }
+});
+
+/* ============================================
+   نمایش/مخفی فیلد دما
+   ============================================ */
 function toggleTempField() {
   const cat = document.getElementById("pCategory").value;
   document.getElementById("tempGroup").style.display = (cat === "espresso" || cat === "drink") ? "block" : "none";
@@ -890,7 +1138,7 @@ function toggleTempField() {
 document.getElementById("pCategory").addEventListener("change", toggleTempField);
 
 /* ============================================
-   ذخیره
+   ذخیره منو
    ============================================ */
 async function saveMenu(show) {
   setStatus("saving", "در حال ذخیره...");
@@ -904,6 +1152,9 @@ async function saveMenu(show) {
   }
 }
 
+/* ============================================
+   ذخیره تنظیمات
+   ============================================ */
 document.getElementById("saveConfigBtn").addEventListener("click", async () => {
   CONFIG.cafeName = document.getElementById("cfgCafeName").value.trim();
   CONFIG.tagline = document.getElementById("cfgTagline").value.trim();
@@ -912,7 +1163,7 @@ document.getElementById("saveConfigBtn").addEventListener("click", async () => {
   CONFIG.phoneDisplay = document.getElementById("cfgPhoneDisplay").value.trim();
   CONFIG.instagram = document.getElementById("cfgInstagram").value.trim();
   CONFIG.instagramUrl = document.getElementById("cfgInstagramUrl").value.trim();
-  CONFIG.tableCount = parseInt(document.getElementById("cfgTableCount").value) || 3;
+  CONFIG.tableCount = parseInt(document.getElementById("cfgTableCount").value) || 4;
   CONFIG.takeawayEnabled = document.getElementById("cfgTakeaway").value === "true";
   setStatus("saving", "در حال ذخیره...");
   try {
