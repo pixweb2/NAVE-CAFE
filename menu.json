@@ -542,8 +542,8 @@
   {
     "id": 104,
     "name": "کوکی",
-    "desc": "بادام زمینی",
-    "price": null,
+    "desc": "بادام زمینی\nموجود",
+    "price": 150,
     "category": "cake",
     "temp": null,
     "image": "coki.webp"
