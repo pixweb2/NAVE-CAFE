@@ -507,7 +507,7 @@
     "id": 100,
     "name": "کیک شکلاتی",
     "desc": "کیک تازه و خوشمزه با گاناش شکلات",
-    "price": null,
+    "price": 250,
     "category": "cake",
     "temp": null,
     "image": "caked.webp"
