@@ -90,15 +90,6 @@
     "image": "pros.webp"
   },
   {
-    "id": 11,
-    "name": "شیک ویتامین",
-    "desc": "شیک میوه‌ای پر از ویتامین",
-    "price": 480,
-    "category": "shake",
-    "temp": null,
-    "image": "vitas.webp"
-  },
-  {
     "id": 12,
     "name": "شیک پینات",
     "desc": "شیک کره بادام زمینی",
