@@ -515,8 +515,8 @@
   {
     "id": 101,
     "name": "تیرامیسو",
-    "desc": "ناموجود",
-    "price": null,
+    "desc": "کلاسیک",
+    "price": 300,
     "category": "cake",
     "temp": null,
     "image": "tira.webp"
