@@ -524,8 +524,8 @@
   {
     "id": 102,
     "name": "چیز کیک لوتوس",
-    "desc": "چیز کیک لوتوس",
-    "price": 300,
+    "desc": "ناموجود",
+    "price": null,
     "category": "cake",
     "temp": null,
     "image": "ccake.webp"
