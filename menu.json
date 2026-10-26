@@ -11,8 +11,8 @@
   {
     "id": 2,
     "name": "شیک وانیل",
-    "desc": "شیک ملایم وانیلی",
-    "price": 250,
+    "desc": "شیک با طعم وانیلی",
+    "price": 275,
     "category": "shake",
     "temp": null,
     "image": "vanil.webp"
