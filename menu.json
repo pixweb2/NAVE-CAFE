@@ -47,8 +47,8 @@
   {
     "id": 6,
     "name": "شیک اورئو",
-    "desc": "شیک خامه‌ای با بیسکویت اورئو",
-    "price": 300,
+    "desc": "شیک با بیسکویت اورئو",
+    "price": 345,
     "category": "shake",
     "temp": null,
     "image": "oreo.webp"
