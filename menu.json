@@ -146,8 +146,8 @@
   {
     "id": 25,
     "name": "پونه",
-    "desc": "دمنوش پونه خوش‌عطر",
-    "price": 180,
+    "desc": "دمنوش پونه خوش‌عطر\n برای سرماخوردگی",
+    "price": 185,
     "category": "tea",
     "temp": null,
     "image": "pune.webp"
