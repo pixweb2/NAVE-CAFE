@@ -218,8 +218,8 @@
   {
     "id": 46,
     "name": "آمریکانو",
-    "desc": "اسپرسو با آب گرم",
-    "price": 170,
+    "desc": "اسپرسو با آب داغ",
+    "price": 175,
     "category": "espresso",
     "temp": "hot",
     "image": "amricano.webp"
