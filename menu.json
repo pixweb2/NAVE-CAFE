@@ -83,8 +83,8 @@
   {
     "id": 10,
     "name": "شیک پروتئین",
-    "desc": "شیک پروتئینه برای انرژی",
-    "price": 480,
+    "desc": "شیک با پروتئین وی",
+    "price": 485,
     "category": "shake",
     "temp": null,
     "image": "pros.webp"
