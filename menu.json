@@ -2,8 +2,8 @@
   {
     "id": 1,
     "name": "شیک توت فرنگی",
-    "desc": "شیک خنک با توت فرنگی تازه",
-    "price": 300,
+    "desc": "شیک خنک با پوره توت فرنگی",
+    "price": 330,
     "category": "shake",
     "temp": null,
     "image": "tf.webp"
