@@ -74,8 +74,8 @@
   {
     "id": 9,
     "name": "شیک پسته",
-    "desc": "شیک پسته اصل و خامه‌ای",
-    "price": 450,
+    "desc": "شیک پسته اصل",
+    "price": 455,
     "category": "shake",
     "temp": null,
     "image": "pestes.webp"
