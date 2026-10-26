@@ -209,8 +209,8 @@
   {
     "id": 45,
     "name": "پسته",
-    "desc": "لاته پسته‌ای خوش‌طعم",
-    "price": 295,
+    "desc": "پسته‌ای خوش‌طعم",
+    "price": 355,
     "category": "espresso",
     "temp": "hot",
     "image": "espeste.webp"
