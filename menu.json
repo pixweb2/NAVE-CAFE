@@ -443,8 +443,8 @@
   {
     "id": 91,
     "name": "شکلات سرد",
-    "desc": "شکلات خنک",
-    "price": 245,
+    "desc": "شیر یخ شکلات",
+    "price": 255,
     "category": "drink",
     "temp": "cold",
     "image": "milkcs.webp"
