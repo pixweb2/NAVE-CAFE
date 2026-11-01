@@ -263,8 +263,8 @@
   {
     "id": 51,
     "name": "موکا",
-    "desc": "قهوه با شکلات و خامه",
-    "price": 280,
+    "desc": "قهوه شکلات شیر",
+    "price": 285,
     "category": "espresso",
     "temp": "hot",
     "image": "mokag.webp"
