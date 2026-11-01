@@ -407,8 +407,8 @@
   {
     "id": 84,
     "name": "هات چاکلت",
-    "desc": "شکلات گرم غنی",
-    "price": 245,
+    "desc": "شکلات گرم",
+    "price": 255,
     "category": "drink",
     "temp": "hot",
     "image": "hotc.webp"
