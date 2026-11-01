@@ -468,15 +468,6 @@
     "image": "crcs.webp"
   },
   {
-    "id": 94,
-    "name": "شکلات سرد طعم‌دار",
-    "desc": "شکلات سرد با سیروپ",
-    "price": 290,
-    "category": "drink",
-    "temp": "cold",
-    "image": "cst.webp"
-  },
-  {
     "id": 95,
     "name": "لیموناد",
     "desc": "لیموناد خنک و ملس",
