@@ -416,8 +416,8 @@
   {
     "id": 85,
     "name": "کرک",
-    "desc": "نوشیدنی گرم کرک",
-    "price": 280,
+    "desc": "شیر گرم کرک",
+    "price": 285,
     "category": "drink",
     "temp": "hot",
     "image": "crc.webp"
