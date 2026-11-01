@@ -435,7 +435,7 @@
     "id": 90,
     "name": "شیر سرد",
     "desc": "شیر تازه سرد",
-    "price": 120,
+    "price": 125,
     "category": "drink",
     "temp": "cold",
     "image": "milks.webp"
