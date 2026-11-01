@@ -353,8 +353,8 @@
   {
     "id": 67,
     "name": "آیس لاته پسته",
-    "desc": "آیس لاته پسته‌ای",
-    "price": 360,
+    "desc": "آیس لاته با طعم پسته",
+    "price": 375,
     "category": "espresso",
     "temp": "cold",
     "image": "icelatepe.webp"
