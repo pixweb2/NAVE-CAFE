@@ -326,8 +326,8 @@
   {
     "id": 64,
     "name": "آیس موکا",
-    "desc": "موکا سرد",
-    "price": 280,
+    "desc": "موکا سرد قهوه شیر شکلات",
+    "price": 285,
     "category": "espresso",
     "temp": "cold",
     "image": "icemoka.webp"
