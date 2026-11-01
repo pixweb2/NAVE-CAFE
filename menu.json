@@ -398,8 +398,8 @@
   {
     "id": 83,
     "name": "شیر پسته",
-    "desc": "شیر گرم با پسته",
-    "price": 250,
+    "desc": "شیر گرم با کره پسته",
+    "price": 265,
     "category": "drink",
     "temp": "hot",
     "image": "milkpe.webp"
