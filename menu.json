@@ -470,8 +470,8 @@
   {
     "id": 95,
     "name": "لیموناد",
-    "desc": "لیموناد خنک و ملس",
-    "price": 260,
+    "desc": "لیموناد خنک",
+    "price": 265,
     "category": "drink",
     "temp": "cold",
     "image": "lim.webp"
