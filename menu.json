@@ -362,8 +362,8 @@
   {
     "id": 68,
     "name": "آیس لاته پروتئین",
-    "desc": "آیس لاته پروتئینه",
-    "price": 370,
+    "desc": "آیس لاته با پروتئین وی",
+    "price": 395,
     "category": "espresso",
     "temp": "cold",
     "image": "icelatepro.webp"
