@@ -334,9 +334,9 @@
   },
   {
     "id": 65,
-    "name": "آیس کارامل",
-    "desc": "اسپرسو سرد با کارامل",
-    "price": 280,
+    "name": "آیس کارامل ماکیاتو",
+    "desc": "اسپرسو سرد با سس و سیروپ کارامل",
+    "price": 335,
     "category": "espresso",
     "temp": "cold",
     "image": "icecara.webp"
