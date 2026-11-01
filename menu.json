@@ -316,9 +316,9 @@
   },
   {
     "id": 63,
-    "name": "آیس موچینو",
-    "desc": "اسپرسو سرد با شکلات",
-    "price": 275,
+    "name": "آیس کاپوچینو",
+    "desc": "اسپرسو سرد فوم شیر پودرکاکائو",
+    "price": 285,
     "category": "espresso",
     "temp": "cold",
     "image": "icemoch.webp"
