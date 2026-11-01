@@ -543,9 +543,9 @@
     "id": 105,
     "name": "موهیتو انار ( ویژه نیو)",
     "desc": "موهیتو خنک با نعناع تازه لیمو انار",
-    "price": null,
-    "category": "shake",
-    "temp": null,
+    "price": 345,
+    "category": "drink",
+    "temp": "cold",
     "image": "IMG_9357.jpeg"
   }
 ]
