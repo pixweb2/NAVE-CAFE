@@ -538,5 +538,14 @@
     "category": "cake",
     "temp": null,
     "image": "coki.webp"
+  },
+  {
+    "id": 105,
+    "name": "موهیتو انار ( ویژه نیو)",
+    "desc": "موهیتو خنک با نعناع تازه لیمو انار",
+    "price": null,
+    "category": "shake",
+    "temp": null,
+    "image": "IMG_9357.jpeg"
   }
 ]
